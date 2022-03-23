@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <link href="/public/tologin/styles.css" rel="stylesheet">
+    <link href="/login/styles.css" rel="stylesheet">
 </head>
 <html>
     <body>
