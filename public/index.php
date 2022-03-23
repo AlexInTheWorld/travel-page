@@ -33,6 +33,7 @@ $router->get('/validate.js', function($req) {
 });
 
 $router->get('/login', function($req) {
+    header('Content-Type: text/html; text/javascript; text/css; charset=utf-8');
     return new Template("templates", "login", array("uname_error" => "", "psw_error" => "")); 
 });
 
