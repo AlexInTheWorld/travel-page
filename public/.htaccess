@@ -2,4 +2,5 @@ order allow,deny
 deny from all
 
 RewriteEngine on
-RewriteRule ^/(.*)$ /index.php
+RewriteBase /
+RewriteRule ^(.*)$ /index.php
