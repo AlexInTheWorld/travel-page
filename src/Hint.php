@@ -33,7 +33,7 @@ class Hint {
             // $handle = fopen("cities.txt", "r");
             // $contents = fread($handle, filesize("cities.txt"));
             // fclose($handle);
-            echo json_encode(array("message" => "Where is my mind?"));
+            echo json_encode(array("message" => "Here should come the result of the query"));
         } else {
             echo json_encode(array("totalResultsCount" => $this->getURL(), "geonames" => array()));
         }

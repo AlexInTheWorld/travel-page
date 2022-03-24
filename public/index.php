@@ -42,10 +42,7 @@ $router->post('/login', function($req) {
 });
 
 $router->get('/search', function($req) {
-    /*
     return new Hint(array_key_exists("city", $req->getBody()) ? $req->getBody()["city"] : "");
-    */
-    echo json_encode(array("message" => "This works!!!"));
 });
 
 $router->resolve(); // Traverse all precedent (defined) routes and call callback function on matched route;
