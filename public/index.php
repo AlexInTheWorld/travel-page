@@ -38,10 +38,12 @@ $router->get('/login', function($req) {
 });
 
 $router->post('/login', function($req) {
+    header('Content-Type: text/html; text/javascript; text/css; charset=utf-8');
     return new Template("templates", "login", array("uname_error" => "No username provided, btich!", "psw_error" => "Where is the password!!!!!")); 
 });
 
 $router->get('/search', function($req) {
+    header('Content-Type: text/html');
     return new Hint(array_key_exists("city", $req->getBody()) ? $req->getBody()["city"] : "");
 });
 

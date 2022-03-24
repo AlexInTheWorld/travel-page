@@ -24,25 +24,19 @@ class Hint {
     function getContents() {
         
         if ($this->getURL()) {
-            /*
-            $handle = fopen($this->getURL(), "r");
-            $contents = fread($handle, filesize($this->getURL()));
-            fclose($handle);
-            echo $contents;
-            */
-            // $handle = fopen("cities.txt", "r");
-            // $contents = fread($handle, filesize("cities.txt"));
-            // fclose($handle);
-            echo json_encode(array("message" => "Here should come the result of the query"));
+            $res = file_get_contents($this->getURL());
+            echo $res;
         } else {
-            echo json_encode(array("totalResultsCount" => $this->getURL(), "geonames" => array()));
+            echo json_encode(array("totalResultsCount" => 0, "geonames" => array()));
         }
         
     }
 
     function setURL() {
         if ($this->getQuery()) {
-            $this->url = self::BASE_URL . "searchJSON?name_startsWith=" . $this->getQuery() . "&cities=cities15000&username=" . self::USERNAME;
+            $query_arr = array("name_startsWith" => $this->getQuery(),
+            "cities" => "cities15000", "username" => self::USERNAME);
+            $this->url = self::BASE_URL . http_build_query($query_arr);
         } else {
             $this->url = "";
         }

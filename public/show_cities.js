@@ -85,43 +85,30 @@ function getHint(url) {
   }
 
 city_input.addEventListener("input", function() {
-    var u_input = validate(this.value);
-    console.log(u_input);
-  
-    if (u_input) {
-        getHint(`/search?city=${encodeURIComponent(u_input)}`)
-        .then(JSON.parse)
-        .then((data) => {
-          console.log(data);
-          /*
-          var cities = {geonameId: [], name: [], lat: [], lng: [], countryName: []};
+  getHint(`/search?city=${encodeURIComponent(validate(this.value))}`)
+  .then(JSON.parse)
+  .then((data) => {
+      var cities = {geonameId: [], name: [], lat: [], lng: [], countryName: []};
 
-          for (let i = 0; i < data.geonames.length; i++) {
-            if (data.geonames[i]["name"] === data.geonames[i]["toponymName"] && 
-            data.geonames[i]["name"].toLowerCase().search(u_input) === 0) {
+      for (let i = 0; i < data.geonames.length; i++) {
+          if (data.geonames[i]["name"] === data.geonames[i]["toponymName"]) {
 
-              Object.keys(incoming).forEach((key) => incoming[key] = data.geonames[i][key] );
+            Object.keys(incoming).forEach((key) => incoming[key] = data.geonames[i][key] );
 
-              for (let j = 0; j < max_num_hints; j++) {
-                if (!cities.name[j]) {
-                  Object.keys(cities).forEach((key) => cities[key][j] = incoming[key]);
-                  break;
-                } else if (cities.name[j] > incoming.name) {
-                  Object.keys(cities).forEach((key) => {
-                    [cities[key][j], incoming[key]] = [incoming[key], cities[key][j]]
-                  });
-                }
+            for (let j = 0; j < max_num_hints; j++) {
+              if (!cities.name[j]) {
+                Object.keys(cities).forEach((key) => cities[key][j] = incoming[key]);
+                break;
+              } else if (cities.name[j] > incoming.name) {
+                Object.keys(cities).forEach((key) => {
+                  [cities[key][j], incoming[key]] = [incoming[key], cities[key][j]]
+                });
               }
-
             }
-          }
 
-           showHints(cities); */
-        });
-        
-    } else {
-        removeSuggestions();
-    }
-        
+          }
+      } 
+      showHints(cities);
+  });
 })
 
