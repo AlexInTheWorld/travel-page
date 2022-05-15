@@ -295,7 +295,7 @@ async function handleSubmitObj(data) {
   }
   finally {
     inProgressOff();
-    console.log(inbound.comments);
+    console.log(JSON.parse(inbound.comments.data));
     /*
     changeBackground(inbound.photo_links);
     
