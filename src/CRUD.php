@@ -5,7 +5,7 @@ class Config {
     * path to the sqlite file
     */
     public static function PATH_TO_DB() {
-        return __DIR__;
+        return dirname(__DIR__) . '/db/cities.db';
     } 
 }
 
