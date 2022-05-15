@@ -5,7 +5,7 @@ class Config {
     * path to the sqlite file
     */
     public static function PATH_TO_DB() {
-        return '/db/cities.db';
+        return dirname(__DIR__) . '/db/cities.db';
     } 
 }
 
@@ -159,6 +159,8 @@ class SQLiteConnection {
     }
     
     public function read_city() {
+        echo json_encode(array("path_to_DB" => Config::PATH_TO_DB()));
+        /*
         $geonameId = array_key_exists("geonameId", $this->payload) ? $this->payload["geonameId"] : "";
 
         if ($this->isNum($geonameId)) {
@@ -175,7 +177,8 @@ class SQLiteConnection {
 
         } else {
             echo json_encode(array());
-        }        
+        } 
+        */       
     } 
     
     public function new_comment() {
@@ -205,7 +208,7 @@ class SQLiteConnection {
     }
     
     function __destruct() {
-        $this->connect();
+        /* $this->connect(); */
         
         if (in_array($this->operation, $this->accepted_operations)) {
             call_user_func(array($this, $this->operation));
