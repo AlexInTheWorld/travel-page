@@ -1,11 +1,6 @@
 <?php
-/*
-$cities_file = fopen("data.json", "r") or die ("unable to open file!");
-$cities_arr = json_decode(fread($cities_file, filesize("data.json")));
-fclose($cities_file);
-*/
 class Hint {
-    const BASE_URL = "http://api.geonames.org/";
+    const BASE_URL = "http://api.geonames.org/searchJSON?";
     const USERNAME = "aliaksandrk";
     private $query;
     private $url;
@@ -18,7 +13,7 @@ class Hint {
         $u_query = filter_var(strtolower($query), FILTER_SANITIZE_STRING);
         $u_query = preg_replace("/\d+/", "", $u_query);
 
-        return $u_query ? urlencode($u_query) : "";
+        return $u_query;
     }
 
     function getContents() {
@@ -35,7 +30,7 @@ class Hint {
     function setURL() {
         if ($this->getQuery()) {
             $query_arr = array("name_startsWith" => $this->getQuery(),
-            "cities" => "cities15000", "username" => self::USERNAME);
+                               "cities" => "cities15000", "username" => self::USERNAME);
             $this->url = self::BASE_URL . http_build_query($query_arr);
         } else {
             $this->url = "";
@@ -56,15 +51,4 @@ class Hint {
     }
 
 }
-/*
-$query = filter_var(strtolower($_GET["q"]), FILTER_SANITIZE_STRING);
-
-if (strlen($query) < 300) {
-    $query = trim(preg_replace("/\d/", "", $query));
-} else {
-    $query = "";
-}
-
-echo $query;
-*/
 ?>

@@ -1,3 +1,148 @@
-li {
+* {
+    box-sizing: border-box;
+}
+
+.user-status-el {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.user-status-el > li {
+    background-color: lightblue;
+}
+
+a {
+    margin-right: 10px;
+}
+
+body {
+    background-image: url("city.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100vh;
+    background-attachment: fixed;
+    transition: background-image 1.5s;
+    background-color: lightslategray;
+}
+
+main {
+    padding: 1%;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+label {
+    text-shadow: 0 0 3px yellow, 0 0 5px azure;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.city-option {
     color: mediumvioletred;
+}
+
+.city-option:hover {
+    cursor: pointer;
+    background-color: beige;
+}
+
+#form-scaffold {
+    display: flex;
+    justify-content: flex-start;
+}
+
+#cities {
+    min-width: 280px;
+}
+
+#inputs {
+    min-width: inherit;
+}
+
+input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: inherit;
+}
+
+#city {
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#suggestions {
+    padding-top: 5px;
+    position: absolute;
+    top: 2px;
+    left: 0;
+    background-color: whitesmoke;
+}
+
+#results {
+    margin-top: 10px;
+}
+
+#info-msg {
+    text-align: center;
+}
+
+#info-msg > span {
+    color: #660033;
+    background-color: #ffe6ff;
+    padding: 4px;
+}
+
+.x-times {
+    cursor: pointer;
+}
+
+.span-intro {
+    font-style: italic;
+}
+
+.no-comments-msg {
+    text-align: center;
+    color: darkgoldenrod;
+}
+
+.flickering {
+    z-index: 100;
+    animation: flicker 1s infinite;
+    background-color: rgba(220, 220, 240, 0.5);
+}
+
+#results-view {
+    background-color: rgba(240, 240, 240, 0.7);
+}
+
+#results-view form {
+    display: flex;
+    flex-direction: column;
+}
+
+#results-view button {
+    margin: 10px auto;
+}
+
+.comment p:first-child {
+    text-decoration: underline;
+}
+
+.comment p:first-child ~ p {
+    text-shadow: 2px 2px 3px azure;
+}
+
+@keyframes flicker {
+    0% {
+        color: lightcoral;
+    }
+    50% {
+        color: darkred;
+    }
+    100% {
+        color: lightcoral;
+    }
 }

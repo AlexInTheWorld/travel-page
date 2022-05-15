@@ -1,36 +1,44 @@
 <!DOCTYPE html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="validate.js" type="text/javascript"></script>
     <script src="show_cities.js" type="text/javascript" defer></script>
-    <link href="/public/styles.css" type="stylesheet">
+    <link href="styles.css" rel="stylesheet"> 
 </head>
+
 <html>
     <body>
-        <ul></ul>
-        <?php
-            if (!isset($_SESSION["loggedin"])) {
-                echo "<li><a href='/login'>Log In</a></li><li><a href='/register'>Register</a></li>";
-            } else {
-                echo "<li><a href='/logout'></a></li>";
-            }  
+        <main>
 
-            if($city) {
-                echo "<p>You would like to go to " .  $city . ". Is that correct?";
-            }
-        ?>
+            <?php
+                $not_logged_el = "<ul id='not_logged_el' class='user-status-el'><li><a href='/login'>Log In</a></li><li><a href='/register'>Register</a></li></ul>";
+                $logged_el = "<ul id='logged_el' class='user-status-el'><li><a href='/logout'>Logout</a></li></ul>";
 
-        <form action="#" method="GET">
-            <label for="city">Which city would you like to visit?</label>
-            <input type="text" name="city" id="city" placeholder="E.g. Amsterdam">
-            <div id="cities">
-                <input type="submit" value="Submit">
-                <ul id="suggestions"></ul>
-            </div>
-        </form>
+                $el_to_show = isset($_SESSION["logged_in"]) ? $_SESSION["logged_in"] ? $logged_el : $not_logged_el : $not_logged_el;
+
+                echo $el_to_show;
+            ?>
+            
+            <form action="#" method="POST">
+                <!-- <input type="hidden" name="geonameId" value="" id="geonameId"> -->
+                <label for="city">Which city would you like to visit?</label>
+                <div id="form-scaffold">
+                    <div id="cities" style="position: relative;">
+                        <div id="inputs">
+                            <input type="text" name="city" id="city" placeholder="E.g. Amsterdam">
+                        </div>
+                        <ul id="suggestions"></ul>
+                    </div>
+                    <button type="submit">Submit</button>
+                </div>
+     
+            </form>
+
+            <section id="results">
+                <div id="info-msg"></div>
+                <div id="results-view"></div>                
+            </section>
+            
+        </main>
     </body>
-
-
 </html>
-
-
-

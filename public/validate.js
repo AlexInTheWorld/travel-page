@@ -11,5 +11,5 @@ function validate(raw_input) {
         }
     }
 
-    return response;
+    return response.toLowerCase();
 }
