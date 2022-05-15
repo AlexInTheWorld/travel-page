@@ -21,7 +21,7 @@ $router->get('/', function($req) {
         "city" => array_key_exists("city", $req->getBody()) ? $req->getBody()["city"] : "Stockholm"
     )); 
 });
-
+/*
 $router->get('/show_cities2.js', function($req) {
     header('Content-Type: text/javascript');
     return new View('show_cities2.js');
@@ -31,7 +31,7 @@ $router->get('/validate.js', function($req) {
     header('Content-Type: text/javascript');
     return new View('validate.js');
 });
-
+*/
 $router->post('/', function($req) {
     return new SQLiteConnection($req->getBody(), "comments", "new_comment");
 });

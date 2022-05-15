@@ -5,7 +5,7 @@ class Config {
     * path to the sqlite file
     */
     public static function PATH_TO_DB() {
-        return dirname(__DIR__) . '/db/cities.db';
+        return '/db/cities.db';
     } 
 }
 
@@ -115,10 +115,6 @@ class SQLiteConnection {
             $stmt->execute([":user" => $this->payload["uname"]]);
             $res = $stmt->fetch(\PDO::FETCH_ASSOC);
             $u_psw = is_bool($res) ? "" : $res["password"];
-                                
-//            while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-//                $u_psw = $row['password'];
-//            }
 
             if (!$u_psw) {
                 $_SESSION["login_err"] = "No such username. Consider <a href='/register'>registering</a>.";
@@ -183,12 +179,8 @@ class SQLiteConnection {
     } 
     
     public function new_comment() {
-        /*
-        $comment = $this->filter_input($this->payload["comment"]);
-        echo json_encode(array("your comment" => $comment, "your username" => $_SESSION["user"], "geonameId" => $this->payload["geonameId"]));
-        */
         
-        if (isset($this->payload["comment"]) && isset($this->payload["geonameId"])) {
+        if (isset($this->payload["comment"]) && isset($this->payload["geonameId"]) && isset($_SESSION["user"])) {
             $comment = $this->filter_input($this->payload["comment"]);
             $sql = 'INSERT INTO comments(comment,geonameId,user) VALUES(:comment,:geonameId,:user)';
             $stmt = $this->pdo->prepare($sql);
