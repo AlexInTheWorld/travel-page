@@ -141,22 +141,6 @@ class SQLiteConnection {
         } else {
             header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
         }
-        
-        /*
-        $commands = ['CREATE TABLE IF NOT EXISTS users (
-                        username VARCHAR (255) NOT NULL PRIMARY KEY,
-                        password TEXT NOT NULL
-                      )',
-                    'CREATE TABLE IF NOT EXISTS comments (
-                    comment TEXT,
-                    geonameId INTEGER,
-                    user VARCHAR (255) NOT NULL,
-                    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (user)
-                    REFERENCES users(username),
-                    CONSTRAINT cityNuser PRIMARY KEY(geonameId, user)
-                    )'];
-        */
 
     }
     
@@ -165,7 +149,7 @@ class SQLiteConnection {
         $geonameId = array_key_exists("geonameId", $this->payload) ? $this->payload["geonameId"] : "";
 
         if ($this->isNum($geonameId)) {
-            $stmt = $this->pdo->prepare("SELECT comment, user, datetime(created_at, 'utc') as date FROM comments WHERE geonameId = :geonameId;");
+            $stmt = $this->pdo->prepare("SELECT comment, user, datetime(created_at) as date FROM comments WHERE geonameId = :geonameId;");
             try {
                 $stmt->execute([':geonameId' => $geonameId]);
                 echo json_encode($stmt->fetchAll()); 
@@ -184,19 +168,38 @@ class SQLiteConnection {
     public function new_comment() {
         
         if (isset($this->payload["comment"]) && isset($this->payload["geonameId"]) && isset($_SESSION["user"])) {
-            $comment = $this->filter_input($this->payload["comment"]);
-            $sql = 'INSERT INTO comments(comment,geonameId,user) VALUES(:comment,:geonameId,:user)';
-            $stmt = $this->pdo->prepare($sql);
             
             try {
-                $stmt->execute([
-                    ":comment" => $comment,
+                $num_posts = $this->pdo->prepare("SELECT COUNT(user) FROM comments WHERE geonameId = :geonameId AND user = :user;");
+                $num_posts->execute([
                     ":geonameId" => $this->payload["geonameId"],
                     ":user" => $_SESSION["user"]
-                ]);                
+                ]);
+                
+                if (num_posts > 0) {
+                    header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
+                    die;
+                    
+                } else {
+                    try {
+                        $comment = $this->filter_input($this->payload["comment"]);
+                        $sql = 'INSERT INTO comments(comment,geonameId,user) VALUES(:comment,:geonameId,:user)';
+                        $stmt = $this->pdo->prepare($sql);
+                        $stmt->execute([
+                            ":comment" => $comment,
+                            ":geonameId" => $this->payload["geonameId"],
+                            ":user" => $_SESSION["user"]
+                        ]);
+                    } catch (PDOException $e) {
+                        header($_SERVER["SERVER_PROTOCOL"] . " 500 Internal Server Error");
+                        die;
+                    }
+                }
+
             } catch (PDOException $e) {
                 header($_SERVER["SERVER_PROTOCOL"] . " 500 Internal Server Error");
                 die;
+                
             } finally {
               header("Location: /");  
             }
@@ -210,6 +213,22 @@ class SQLiteConnection {
     function __destruct() {
         $this->connect();
         
+        /*
+        $commands = ['CREATE TABLE IF NOT EXISTS users (
+                        username VARCHAR (255) NOT NULL PRIMARY KEY,
+                        password TEXT NOT NULL
+                      )',
+                    'CREATE TABLE IF NOT EXISTS comments (
+                    comment TEXT,
+                    geonameId INTEGER,
+                    user VARCHAR (255) NOT NULL,
+                    created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (user)
+                    REFERENCES users(username),
+                    CONSTRAINT cityNuser PRIMARY KEY(geonameId, user)
+                    )'];
+        */
+
         if (in_array($this->operation, $this->accepted_operations)) {
             call_user_func(array($this, $this->operation));
         } else {

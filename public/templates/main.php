@@ -9,15 +9,18 @@
 <html>
     <body>
         <main>
-
             <?php
-                $not_logged_el = "<ul id='not_logged_el' class='user-status-el'><li><a href='/login'>Log In</a></li><li><a href='/register'>Register</a></li></ul>";
-                $logged_el = "<ul id='logged_el' class='user-status-el'><li><a href='/logout'>Logout</a></li></ul>";
-
-                $el_to_show = isset($_SESSION["logged_in"]) ? $_SESSION["logged_in"] ? $logged_el : $not_logged_el : $not_logged_el;
-
+                $not_logged_el = "<ul class='user-status-el'><li><a href='/login'>Log In</a></li><li><a href='/register'>Register</a></li></ul>";
+                $user = isset($_SESSION["user"]) ? $_SESSION["user"] : NULL;
+                $el_to_show = $user ? "<ul class='user-status-el'><li><a href='/logout'>Logout</a></li></ul>" : $not_logged_el;
                 echo $el_to_show;
             ?>
+            
+            <?php if($user): ?>
+            <script>sessionStorage.setItem("user", "<?=$user;?>");</script>
+            <?php else:      ?>
+            <script>sessionStorage.removeItem("user");</script>
+            <?php endif;     ?>
             
             <form action="#" method="POST">
                 <!-- <input type="hidden" name="geonameId" value="" id="geonameId"> -->
