@@ -71,8 +71,8 @@ $router->get('/search', function($req) {
 });
 
 $router->get('/city', function($req) {
-    echo json_encode(array("current_path" => __DIR__));
-    // return new SQLiteConnection($req->getBody(), "cities", "read_city"); 
+    // echo json_encode(array("current_path" => __DIR__));
+    return new SQLiteConnection($req->getBody(), "cities", "read_city"); 
 });
 
 $router->resolve(); // Traverse all precedent (defined) routes and call callback function on matched route;
