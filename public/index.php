@@ -57,11 +57,11 @@ $router->get('/register', function($req) {
     $_SESSION["login_err"] = "";
     return new Template("templates", "login_OR_register", array("error" => $error, "type" => "register"));
 });
-
+/*
 $router->get('/register/register.js', function($req) {
     return new View('./register/register.js'); 
 });
-
+*/
 $router->post('/register', function($req) {
     return new SQLiteConnection($req->getBody(), "users", "register");
 });
