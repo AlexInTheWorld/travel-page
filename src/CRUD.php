@@ -218,13 +218,13 @@ class SQLiteConnection {
     
     function __destruct() {
         $this->connect();
-        
+        /*
         if (in_array($this->operation, $this->accepted_operations)) {
             call_user_func(array($this, $this->operation));
         } else {
             header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
         }
-
+        */
     }
     
 }
