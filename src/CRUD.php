@@ -165,7 +165,7 @@ class SQLiteConnection {
         $geonameId = array_key_exists("geonameId", $this->payload) ? $this->payload["geonameId"] : "";
 
         if ($this->isNum($geonameId)) {
-            $stmt = $this->pdo->prepare("SELECT comment, user, datetime(created_at) as date FROM comments WHERE geonameId = :geonameId;");
+            $stmt = $this->pdo->prepare("SELECT comment, user, datetime(created_at, 'utc') as date FROM comments WHERE geonameId = :geonameId;");
             try {
                 $stmt->execute([':geonameId' => $geonameId]);
                 echo json_encode($stmt->fetchAll()); 
