@@ -214,6 +214,8 @@ class SQLiteConnection {
         $this->connect();
         
         /*
+        Create the table and scheme at the moment of launching the app
+        
         $commands = ['CREATE TABLE IF NOT EXISTS users (
                         username VARCHAR (255) NOT NULL PRIMARY KEY,
                         password TEXT NOT NULL
@@ -227,6 +229,10 @@ class SQLiteConnection {
                     REFERENCES users(username),
                     CONSTRAINT cityNuser PRIMARY KEY(geonameId, user)
                     )'];
+
+        foreach ($commands as $command) {
+            $this->pdo->exec($command);
+        }
         */
 
         if (in_array($this->operation, $this->accepted_operations)) {
