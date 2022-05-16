@@ -37,7 +37,7 @@ class SQLiteConnection {
                 $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
             }
             catch (\PDOException $e) {
-                $response["msg"] = $e;
+                $response["msg"] = $e->getMessage();
                 
                 // header($_SERVER["SERVER_PROTOCOL"] . " 500 Internal Server Error");
                 // die;
