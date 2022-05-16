@@ -28,9 +28,9 @@ class SQLiteConnection {
     
     public function connect() {
         if (empty($this->pdo)) {
-            $response = [];
-            echo json_encode(array("path_to_DB" => Config::PATH_TO_DB()));
-            /*
+            $response = array("msg" => "all went smoothly");
+            // echo json_encode(array("path_to_DB" => Config::PATH_TO_DB()));
+            
             try {
                 $this->pdo = new \PDO("sqlite:" . Config::PATH_TO_DB());
                 $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -45,7 +45,7 @@ class SQLiteConnection {
             } finally {
                 echo json_encode($response);
             }
-            */          
+                     
         }
     }
     
