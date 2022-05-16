@@ -59,7 +59,7 @@ $router->get('/register', function($req) {
 });
 
 $router->get('/register/register.js', function($req) {
-    return new View('./register/register.js'); 
+    return new View('./toregister/register.js'); 
 });
 
 $router->post('/register', function($req) {
