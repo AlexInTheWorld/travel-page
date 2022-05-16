@@ -211,7 +211,7 @@ class SQLiteConnection {
     }
     
     function __destruct() {
-        /* $this->connect(); */
+        $this->connect();
         
         if (in_array($this->operation, $this->accepted_operations)) {
             call_user_func(array($this, $this->operation));
