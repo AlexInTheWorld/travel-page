@@ -1,7 +1,7 @@
 <?php
 class Hint {
     const BASE_URL = "http://api.geonames.org/searchJSON?";
-    const USERNAME = "aliaksandrk";
+    const USERNAME = "<username granted by GeoNames Org.>";
     private $query;
     private $url;
 
