@@ -176,7 +176,7 @@ class SQLiteConnection {
                     ":user" => $_SESSION["user"]
                 ]);
                 
-                if (num_posts > 0) {
+                if ($num_posts > 0) {
                     header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
                     die;
                     
