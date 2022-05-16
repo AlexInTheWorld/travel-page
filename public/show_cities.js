@@ -287,16 +287,14 @@ async function handleSubmitObj(data) {
   
   try {
     inbound.comments = await getHint("GET", base_url_dbcity, data.geonameId, Date.now());
-    /* let city_links = await getHint("GET", base_photo_url, data.geonameId, Date.now());
-    inbound.photo_links = await getPhotoDetails(JSON.parse(city_links.data));   */
+    let city_links = await getHint("GET", base_photo_url, data.geonameId, Date.now());
+    inbound.photo_links = await getPhotoDetails(JSON.parse(city_links.data));
   } 
   catch(e) {
     console.error(e);
   }
   finally {
-    inProgressOff();
-    console.log(JSON.parse(inbound.comments.data));
-    /*
+    inProgressOff();   
     changeBackground(inbound.photo_links);
     
     if (inbound.comments) {
@@ -307,7 +305,7 @@ async function handleSubmitObj(data) {
         queryErrMsg("Ooops, an error occured in the process. Try again.");
       }
     }
-    */
+    
   }
     
 }
