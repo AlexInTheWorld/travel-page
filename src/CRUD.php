@@ -28,18 +28,21 @@ class SQLiteConnection {
     
     public function connect() {
         if (empty($this->pdo)) {
+            $response = [];
             try {
                 $this->pdo = new \PDO("sqlite:" . Config::PATH_TO_DB());
                 $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
             }
             catch (\PDOException $e) {
-                echo json_encode(array("msg" => "an error occured"));
+                $response["msg"] = $e;
                 /*
                 header($_SERVER["SERVER_PROTOCOL"] . " 500 Internal Server Error");
                 die;
                 */
-            }            
+            } finally {
+                echo json_encode($response);
+            }          
         }
     }
     
