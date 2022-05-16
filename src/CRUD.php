@@ -5,7 +5,7 @@ class Config {
     * path to the sqlite file
     */
     public static function PATH_TO_DB() {
-        return /* path to your SQLite db */;
+        return /*path to your SQLite db*/;
     } 
 }
 
