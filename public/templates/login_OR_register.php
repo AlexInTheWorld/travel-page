@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <head>
     <link href="form_styles.css" rel="stylesheet">
-
+    <?php if($type === "register"): ?>
+    <script src="register.js" type="text/javascript" defer></script>
+    <?php endif; ?>
 </head>
 <html>
     <body>
