@@ -27,23 +27,16 @@ class SQLiteConnection {
     }
     
     public function connect() {
-        if (empty($this->pdo)) {
-            $response = array("msg" => "all went smoothly");
-            // echo json_encode(array("path_to_DB" => Config::PATH_TO_DB()));
-            
+        if (empty($this->pdo)) {   
+
             try {
                 $this->pdo = new \PDO("sqlite:" . Config::PATH_TO_DB());
                 $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
             }
             catch (\PDOException $e) {
-                $response["msg"] = $e->getMessage();
-                
-                // header($_SERVER["SERVER_PROTOCOL"] . " 500 Internal Server Error");
-                // die;
-                
-            } finally {
-                echo json_encode($response);
+                header($_SERVER["SERVER_PROTOCOL"] . " 500 Internal Server Error");
+                die;
             }
                      
         }
@@ -168,8 +161,7 @@ class SQLiteConnection {
     }
     
     public function read_city() {
-        echo json_encode(array("path_to_DB" => Config::PATH_TO_DB()));
-        /*
+        
         $geonameId = array_key_exists("geonameId", $this->payload) ? $this->payload["geonameId"] : "";
 
         if ($this->isNum($geonameId)) {
@@ -187,7 +179,7 @@ class SQLiteConnection {
         } else {
             echo json_encode(array());
         } 
-        */       
+              
     } 
     
     public function new_comment() {
@@ -218,13 +210,13 @@ class SQLiteConnection {
     
     function __destruct() {
         $this->connect();
-        /*
+        
         if (in_array($this->operation, $this->accepted_operations)) {
             call_user_func(array($this, $this->operation));
         } else {
             header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
         }
-        */
+        
     }
     
 }
