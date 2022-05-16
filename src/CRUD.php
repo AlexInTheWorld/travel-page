@@ -93,11 +93,11 @@ class SQLiteConnection {
             $stmt = $this->pdo->prepare("INSERT INTO users(username,password)                   VALUES(:username,:password)");
             try {
                 $stmt->execute([":username" => $uname, ":password" => $u_psw]);
-                $_SESSION["logged_in"] = TRUE;
+                $_SESSION["user"] = $uname;
                 header("Location: /");
                 exit;
             } catch (PDOException $e) {
-                $_SESSION["logged_in"] = FALSE;
+                $_SESSION["user"] = NULL;
                 $_SESSION["login_err"] = "An eventual error occured. Try again.";
                 header("Location: /register");
                 exit;
@@ -126,7 +126,6 @@ class SQLiteConnection {
             } else {
                 
                 if (password_verify($this->payload["psw"], $u_psw)) {
-                    $_SESSION["logged_in"] = TRUE;
                     $_SESSION["user"] = $this->payload["uname"];
                     header("Location: /");
                     exit;
