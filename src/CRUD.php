@@ -34,7 +34,7 @@ class SQLiteConnection {
                 $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
             }
             catch (\PDOException $e) {
-                echo json_encode(array("msg" => $e));
+                echo json_encode(array("msg" => "an error occured"));
                 /*
                 header($_SERVER["SERVER_PROTOCOL"] . " 500 Internal Server Error");
                 die;
